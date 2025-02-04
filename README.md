@@ -1,13 +1,11 @@
 # Build a Three-Tier Web App on AWS
 
-**Project Link:** [View Project](http://learn.nextwork.org/projects/aws-compute-threetier)
-
 **Author:** Gilbert Emodi  
 **Email:** zemodi99@gmail.com
 
 ---
 
-![Image](http://learn.nextwork.org/ecstatic_beige_calm_tarapirohe/uploads/aws-compute-threetier_2b3c4d5e)
+![Image](https://github.com/GilbertEmodi/AWS-ThreeTier-Web-App/blob/main/architecture-complete.png?raw=true)
 
 ---
 
@@ -35,7 +33,7 @@ For the presentation tier, I will set up how the website will be displayed to ou
 
 I accessed my delivered website by visiting the CloudFront distribution's URL. The URL is working because I set up an Orgin Access Control that lets my S3 bucket restrict access to only my CloudFront Distrubution.
 
-![Image](http://learn.nextwork.org/ecstatic_beige_calm_tarapirohe/uploads/aws-compute-threetier_3a4b5c6d)
+![Image](https://github.com/GilbertEmodi/AWS-ThreeTier-Web-App/blob/main/1-screenshot-of-website.JPG?raw=true)
 
 ---
 
@@ -45,7 +43,7 @@ For the logic tier, I will set up a Lambda function to process requests (e.g. lo
 
 The Lambda function retrieves data by looking up the userID that the user enters over the web app in DynamoDB. The AWS SDK is used in the function code so I can use templates and libraries that let me find the correct DynamoDB table & request data.
 
-![Image](http://learn.nextwork.org/ecstatic_beige_calm_tarapirohe/uploads/aws-compute-threetier_6a7b8c9d)
+![Image](https://github.com/GilbertEmodi/AWS-ThreeTier-Web-App/blob/main/2-screenshot-of-Lambda-function.JPG?raw=true)
 
 ---
 
@@ -55,7 +53,7 @@ For the data tier, I will set up a DynamoDB database that stores user data. At t
 
 The partition key for my DynamoDB table is "userID". This means that when the table looks up user data, it will look it up based on "userID". Then, it can return all the values related to the item with that ID.
 
-![Image](http://learn.nextwork.org/ecstatic_beige_calm_tarapirohe/uploads/aws-compute-threetier_u1v2w3x4)
+![Image](https://github.com/GilbertEmodi/AWS-ThreeTier-Web-App/blob/main/3-screenshot-of-DynamoDB-JSON.JPG?raw=true)
 
 ---
 
@@ -65,7 +63,7 @@ Once all three layers of my three-tier architecture are set up, the next step is
 
 To test my API, I visited the Invoke URL of the "PROD" stage API. This let me test if I can use the API and retrieve user data. The results were some user data in JSON when I looked up "userId=1". This proved the logic & data tier connection.
 
-![Image](http://learn.nextwork.org/ecstatic_beige_calm_tarapirohe/uploads/aws-compute-threetier_a112c3d5)
+![Image](https://github.com/GilbertEmodi/AWS-ThreeTier-Web-App/blob/main/4-screenshot-of-API-results.JPG?raw=true)
 
 ---
 
@@ -78,7 +76,7 @@ To resolve the error, I updated "script.js" by replacing some placeholder text w
 
 I ran into a second error after updating script.js. This was an error on the browser side with CORS because API gateway, by default, is only configured to allow requests from users directly running its Invoke URL in the browser (not with CloudFront).
 
-![Image](http://learn.nextwork.org/ecstatic_beige_calm_tarapirohe/uploads/aws-compute-threetier_a1b2c3d5)
+![Image](https://github.com/GilbertEmodi/AWS-ThreeTier-Web-App/blob/main/5-screenshot-of-console-error.JPG?raw=true)
 
 ---
 
@@ -88,7 +86,7 @@ To resolve the CORS error, I first went into the API (in API Gateway) and enable
 
 I also updated my Lambda function because it needs to be able to return CORS headers to show that it has permission to invoke the API's URL and return a response. I added 'Access-Control-Allow-Origin' as a header in the response.
 
-![Image](http://learn.nextwork.org/ecstatic_beige_calm_tarapirohe/uploads/aws-compute-threetier_1qthryj2)
+![Image](https://github.com/GilbertEmodi/AWS-ThreeTier-Web-App/blob/main/6-screenshot-of-updated-lambda-CORS.JPG?raw=true)
 
 ---
 
@@ -96,7 +94,7 @@ I also updated my Lambda function because it needs to be able to return CORS hea
 
 I verified the fixed connection between API Gateway and CloudFront by looking up user data in the distributed site again. In my final test, user data could be returned - so a user request in the presentation tier gets data from the data tier.
 
-![Image](http://learn.nextwork.org/ecstatic_beige_calm_tarapirohe/uploads/aws-compute-threetier_2b3c4d5e)
+![Image](https://github.com/GilbertEmodi/AWS-ThreeTier-Web-App/blob/main/7-screenshot-of-successful-webpage.JPG?raw=true)
 
 ---
 
